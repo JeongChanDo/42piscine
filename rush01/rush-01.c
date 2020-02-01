@@ -98,12 +98,8 @@ void	ft_possible_case(int res_arr[24][6]){
 	int tmp[6];
 	for (z = 0; z < 24; z++)
 	{
-		tmp[0] = res_arr[z][0];
-		tmp[1] = res_arr[z][1];
-		tmp[2] = res_arr[z][2];
-		tmp[3] = res_arr[z][3];
-		tmp[4] = res_arr[z][4];
-		tmp[5] = res_arr[z][5];
+		for (i = 0; i < 6; i++)
+			tmp[i] = res_arr[z][i];
 		printf("%d -> ", tmp[0]);
 		printf("|");
 		printf("%d %d %d %d", tmp[1], tmp[2], tmp[3], tmp[4]);
@@ -152,12 +148,8 @@ int		testbed()
 	int j;
 	
 	i = 0;
-	/*
-	printf("sizeof arr1 : %d\n",sizeof(arr1)/sizeof(int));
-	printf("sizeof arr2 : %d\n",sizeof(arr2)/sizeof(int));
-	printf("sizeof arr3 : %d\n",sizeof(arr3)/sizeof(int));
-	printf("sizeof arr4 : %d\n",sizeof(arr4)/sizeof(int));
-	*/
+	
+	// all rows length and cnt
 	int arrlen[4] = {sizeof(arr1)/sizeof(int),
 				sizeof(arr2)/sizeof(int),
 				sizeof(arr3)/sizeof(int),
@@ -166,15 +158,12 @@ int		testbed()
 					arrlen[1]/sizeof(int),
 					arrlen[2]/sizeof(int),
 					arrlen[3]/sizeof(int)};
-	for (i = 0 ; i < 4; i++)
-	{
-		printf("arrlen[%d] : %d\n", i, arrlen[i]);
-		printf("arrrows[%d] : %d\n\n", i, arrrows[i]);
-	}
+	
 
 	int idx_arr[] = {0, 0, 0, 0};
 	int solution_len = 0;
 
+	//soltuion length calculation
 	for (idx_arr[0] = 0; idx_arr[0] < arrrows[0]; idx_arr[0]++)
 	{
 		for (idx_arr[1] = 0; idx_arr[1] < arrrows[1]; idx_arr[1]++)
@@ -183,29 +172,15 @@ int		testbed()
 			{
 				for (idx_arr[3] = 0; idx_arr[3] < arrrows[3]; idx_arr[3]++)
 				{
-					for (j = 0; j < 4; j++)
-						printf("%d ",  arr1[idx_arr[0]][j]);
-					printf("\n");
-					for (j = 0; j < 4; j++)
-						printf("%d ",  arr2[idx_arr[1]][j]);
-					printf("\n");
-					for (j = 0; j < 4; j++)
-						printf("%d ",  arr3[idx_arr[2]][j]);
-					printf("\n");
-					for (j = 0; j < 4; j++)
-						printf("%d ",  arr4[idx_arr[3]][j]);
-					printf("\n");
-					printf("--------\n");
-
 					solution_len++;
 				}
 			}
 		}
 	}
-	printf("complete\n");
+
+	//insert to 3d ( solution_len x 4 x 4)
 	int col_arrs[solution_len][4][4];
 	int solution_idx = 0;
-	
 	for (i = 0; i< solution_len; i++)
 	{
 		for (idx_arr[0] = 0; idx_arr[0] < arrrows[0]; idx_arr[0]++)
@@ -230,6 +205,7 @@ int		testbed()
 		solution_idx++;
 	}
 
+	//print all solutions
 	int x;
 	int y;
 	for (i = 0; i< solution_len; i++)
@@ -245,40 +221,10 @@ int		testbed()
 		printf("--------\n");
 	}
 
-
-
-
-	/*
-	printf("solution_len : %d \n", solution_len);
-	int **solutions[4];
-	solutions[0] = arr1;
-	solutions[1] = arr2;
-	solutions[2] = arr3;
-	solutions[3] = arr4;
 	
-	int **tmp = solutions[0];
-	printf("val : %d\n",arr1[0][0]);
-	printf("solutions[0] : %p\n",solutions[0]);
-	printf("tmp : %p\n",tmp);
-	tmp++;
-	tmp++;
-	printf("tmp : %p\n",tmp);
-	printf("arr : %p\n",arr1);
-	printf("arr[0] : %p\n",arr1[0]);
-	printf("arr[1] : %p\n",arr1[1]);
-	printf("solutions[0][0] : %p\n", (solutions[0])[0]);
-	printf("addr : %p\n", (*solutions[0]));
-	printf("addr : %p\n", *(solutions[0]));
-	printf("arr1[0] : %p\n",arr1[0]);
-	for (i=0; i < 1; i++)
-	{
-		for( j = 0; j < 4; j++)
-		{
-			printf("%d ",solutions[0][i][j]);
-		}
-		printf("\n");
-	}
-	*/
+	//check_vertically
+
+
 }
 
 void	main(int argc, char *argv[])
