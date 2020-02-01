@@ -6,7 +6,7 @@
 /*   By: jdo <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/01 01:21:52 by jdo               #+#    #+#             */
-/*   Updated: 2020/02/01 12:29:58 by jdo              ###   ########.fr       */
+/*   Updated: 2020/02/01 13:33:50 by jdo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,142 @@ void	print_mats(int mat[6][6])
 				printf(" ");
 		}
 		printf("\n");
+	}
+}
+
+int	search_zerone_cnt(int mat[6][6])
+{
+	int pos_cnt = 0;
+	int zero_cnt = 0;
+	int i = 0;
+	int j = 0;
+
+	//search horizontal
+	for ( i = 1; i <5; i++)
+	{
+		zero_cnt = 0;
+		for (j = 1; j <5; j++)
+		{
+			if(mat[i][j] == 0)
+				zero_cnt++;
+		}
+		if (zero_cnt == 1)
+			pos_cnt++;
+	}
+	//search vertical
+	for ( i = 1; i <5; i++)
+	{
+		zero_cnt = 0;
+		for (j = 1; j <5; j++)
+		{
+			if(mat[j][i] == 0)
+				zero_cnt++;
+		}
+		if (zero_cnt == 1)
+			pos_cnt++;
+	}
+	printf("zero one cnt : %d\n",pos_cnt);
+	return (pos_cnt);
+}
+
+int	search_zerone(int zerone_cnt, int *coord[2], int mat[6][6])
+{
+	int zero_cnt = 0;
+	int i = 0;
+	int j = 0;
+	int pos_cnt = 0;
+
+	//int coord[pos_cnt][2];
+
+	//search horizontal
+	for ( i = 1; i <5; i++)
+	{
+		zero_cnt = 0;
+		for (j = 1; j <5; j++)
+		{
+			if(mat[i][j] == 0)
+				zero_cnt++;
+		}
+		if (zero_cnt == 1)
+		{
+			for (j = 1; j <5; j++)
+			{
+				if(mat[i][j] == 0)
+				{
+					coord[pos_cnt][0] = i;
+					coord[pos_cnt][1] = j;
+					printf("zero_one pos : (%d, %d)\n", i, j);
+				}
+			}
+			pos_cnt++;
+		}
+	}
+
+	pos_cnt = 0;
+	//search vertical
+	for ( i = 1; i <5; i++)
+	{
+		zero_cnt = 0;
+		for (j = 1; j <5; j++)
+		{
+			if(mat[j][i] == 0)
+				zero_cnt++;
+		}
+		if (zero_cnt == 1)
+		{
+			for (j = 1; j <5; j++)
+			{
+				if(mat[j][i] == 0)
+				{
+					coord[pos_cnt][0] = i;
+					coord[pos_cnt][1] = j;
+					printf("zero_one pos : (%d, %d)\n", i, j);
+				}
+			}
+			pos_cnt++;
+		}
+	}
+}
+
+int	find_empty_val(int x, int y, int mat[6][6])
+{
+	int val[] = {1, 2, 3, 4};
+	int i = 1;
+	int j = 1;
+	int val_idx = 0;
+	int zero_cnt = 0;
+
+	//horizontal check
+	i = x;
+	for (j = 1; j < 5; j++)
+	{
+		if (mat[i][j] == 0)
+			zero_cnt++;
+	}
+
+	if (zero_cnt != 1)
+	{
+		printf("horizontal zero one not found\n");
+	}
+	else
+	{
+		//implement is needed for zero one pos insert empty number;
+	}
+
+
+}
+void	fill_zerone(int zerone_cnt, int *coord[2], int mat[6][6])
+{
+	int i = 0;
+	int x = 0;
+	int y = 0;
+	int empty_val = 0;
+	for (i = 0; i < zerone_cnt ; i++)
+	{
+		x = coord[i][0];
+		y = coord[i][1];
+		empty_val = find_empty_val(x, y, mat);
+		mat[x][y] = empty_val;
 	}
 }
 
@@ -154,6 +290,7 @@ void	insert_mat(int *input, int mat[6][6])
 		}
 		i++;
 	}
+
 	//vertical up - insert 1 2 3 4 if col up is 4;
 	i = 0;
 	while (i >= 0 && i <= 3)
@@ -171,6 +308,24 @@ void	insert_mat(int *input, int mat[6][6])
 		}
 		i++;
 	}
+
+	i = 0;
+	while (i >= 0 && i <= 3)
+	{
+		if (input[i] == 4)
+		{
+			mat[1][i + 1] = 1;
+			mat[2][i + 1] = 2;
+			mat[3][i + 1] = 3;
+			mat[4][i + 1] = 4;
+		}
+		else if (input[i] == 1)
+		{
+			mat[1][i + 1] = 4;
+		}
+		i++;
+	}
+
 }
 
 
@@ -202,9 +357,13 @@ void	rush(char *str)
 	print_mat(mat);
 	print_mats(mat);
 
+	int zerone_cnt = search_zerone_cnt(mat);
+	int coord[zerone_cnt][2];
+	search_zerone(zerone_cnt, coord, mat);
+	fill_zerone(zerone_cnt, coord, mat);
 
-	int res_arr[24][6];
-	view_result(res_arr);
+	//int res_arr[24][6];
+	//view_result(res_arr);
 
 }
 
