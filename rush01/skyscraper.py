@@ -9,11 +9,8 @@ def satisfies_r(s, row, r):
 	return satisfies_l(s, list(reversed(row)), r)
 
 def satisfies_l(s, row, l):
-        # row 를 집합으로 변환 후 길이를 구하고 차원수 s보다 작은지 확인
-        # 행 집합 길이가 s보다 작다면 만족하지 않으므로 False
 	if len(set(row)) < s:
 		return False
-        # ㄱ
 	if l == 0:
 		return True
 	seen = 0
@@ -52,11 +49,11 @@ def format_time(s):
 
 def print_time(done, total, s):
 	#eta = format_time(int((total / done - 1) * s))
-	print('progress: {} / {} = {}%, est.max. time left: {}'.format(done, total, done * 100 /total:.2f, eta))
+	print('progress: {} / {} = {}%, est.max. time left: {}'.format(done, total, done * 100 /total, eta))
 
 def print_time_found(done, total, s):
 	#dhms = format_time(int(s))
-	print('Solution found after searching {} / {} = {}% in {}'.format(done, total, done *100/total:.2f, dhms))
+	print('Solution found after searching {} / {} = {}% in {}'.format(done, total, done *100/total, dhms))
 
 def is_valid_solution(s, solution, t, b):
 	count = 0
@@ -76,7 +73,7 @@ def solve(s, l, r, t, b, verbose):
 	start_freq = 10000
 	time_freq = start_freq
 	if verbose > 0:
-		print(f'{total} possible solutions')
+		print('{} possible solutions'.format(total))
 	for solution in itertools.product(*rows):
 		sol_count += 1
 		if verbose > 0 and sol_count % time_freq == 0:
