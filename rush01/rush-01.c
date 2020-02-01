@@ -6,7 +6,7 @@
 /*   By: jdo <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/01 01:21:52 by jdo               #+#    #+#             */
-/*   Updated: 2020/02/01 14:12:53 by jdo              ###   ########.fr       */
+/*   Updated: 2020/02/01 14:49:34 by jdo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -226,14 +226,13 @@ int	find_empty_val(int x, int y, int mat[6][6])
 		{
 			if(val[val_idx] != 9)
 			{
-				//printf("vertical direction zero one is founded insert %d(%d, %d) \n", val_idx+1, x, y);
+				printf("vertical direction zero one is founded insert %d(%d, %d) \n", val_idx+1, x, y);
 				mat[x][y] = val_idx+1;
+				return val_idx + 1;
 			}
 		}
 
 	}
-
-	//print_mat(mat);
 
 }
 void	fill_zerone(int zerone_cnt, int *coord[2], int mat[6][6])
@@ -415,15 +414,19 @@ void	rush(char *str)
 						{input[11], 0, 0, 0, 0, input[15]},
 						{0, input[4], input[5], input[6], input[7], 0}
 					};
+	print_mat(mat);
 	insert_mat(input, mat);
 	print_mat(mat);
-	print_mats(mat);
+	//print_mats(mat);
 
 	int zerone_cnt = search_zerone_cnt(mat);
+	//printf("after search zero cnt : ok");
 	int coord[zerone_cnt][2];
 	search_zerone(zerone_cnt, coord, mat);
+	//printf("after search zero : ok");
 	fill_zerone(zerone_cnt, coord, mat);
 
+	print_mat(mat);
 	//int res_arr[24][6];
 	//view_result(res_arr);
 
@@ -467,17 +470,18 @@ void	show_examples(char **str)
 
 void	main(int argc, char *argv[])
 {
-	char *str = "1 3 4 2 2 2 1 2 1 3 2 2 2 1 3 2";
-	char *str1 = "1 3 4 2 2 2 1 2 1 3 2 2 2 1 3 2";
-	char *str2 = "3 1 2 2 1 2 2 3 2 2 3 1 3 1 2 3";
+	//char *str = "1 3 4 2 2 2 1 2 1 3 2 2 2 1 3 2";
+	//char *str1 = "1 3 4 2 2 2 1 2 1 3 2 2 2 1 3 2";
+	//char *str2 = "3 1 2 2 1 2 2 3 2 2 3 1 3 1 2 3";
 	char *str3 = "2 3 1 3 3 2 2 1 2 1 2 4 2 4 2 1";
-	char *str4 = "4 3 2 1 1 2 2 2 4 3 2 1 1 2 2 2";
+	//char *str4 = "4 3 2 1 1 2 2 2 4 3 2 1 1 2 2 2";
 	/*
 	if (argc != 2)
 		write(1, "Error\n", 6);
 	*/
 	//char *str = argv[1];
-	//rush(str);
+	rush(str3);
+	/*
 	printf("input : %s \n", str1);
 	rush_simple(str1);
 	printf("----------\n");
@@ -486,8 +490,8 @@ void	main(int argc, char *argv[])
 	printf("----------\n");
 	printf("input : %s \n", str3);
 	rush_simple(str3);
-	printf("----------\n");
 	printf("input : %s \n", str4);
 	rush_simple(str4);
 	printf("----------\n");
+	*/
 }
