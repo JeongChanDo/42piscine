@@ -174,6 +174,7 @@ int		testbed()
 
 	int idx_arr[] = {0, 0, 0, 0};
 	int solution_len = 0;
+
 	for (idx_arr[0] = 0; idx_arr[0] < arrrows[0]; idx_arr[0]++)
 	{
 		for (idx_arr[1] = 0; idx_arr[1] < arrrows[1]; idx_arr[1]++)
@@ -182,17 +183,58 @@ int		testbed()
 			{
 				for (idx_arr[3] = 0; idx_arr[3] < arrrows[3]; idx_arr[3]++)
 				{
+					/*
 					printf("%d %d %d %d\n", arr1[idx_arr[0]][0], arr1[idx_arr[0]][1], arr1[idx_arr[0]][2], arr1[idx_arr[0]][3]);
 					printf("%d %d %d %d\n", arr2[idx_arr[1]][0], arr2[idx_arr[1]][1], arr2[idx_arr[1]][2], arr2[idx_arr[1]][3]);
 					printf("%d %d %d %d\n", arr3[idx_arr[2]][0], arr3[idx_arr[2]][1], arr3[idx_arr[2]][2], arr3[idx_arr[2]][3]);
 					printf("%d %d %d %d\n", arr4[idx_arr[3]][0], arr4[idx_arr[3]][1], arr4[idx_arr[3]][2], arr4[idx_arr[3]][3]);
 					printf("--------\n");
+*/
+					for (j = 0; j < 4; j++)
+						printf("%d ",  arr1[idx_arr[0]][j]);
+					printf("\n");
+					for (j = 0; j < 4; j++)
+						printf("%d ",  arr2[idx_arr[1]][j]);
+					printf("\n");
+					for (j = 0; j < 4; j++)
+						printf("%d ",  arr3[idx_arr[2]][j]);
+					printf("\n");
+					for (j = 0; j < 4; j++)
+						printf("%d ",  arr4[idx_arr[3]][j]);
+					printf("\n");
+					printf("--------\n");
+
+
 
 					solution_len++;
 				}
 			}
 		}
 	}
+	int col_arrs[solution_len][4][4];
+	int solution_idx = 0;
+	for (idx_arr[0] = 0; idx_arr[0] < arrrows[0]; idx_arr[0]++)
+	{
+		for (idx_arr[1] = 0; idx_arr[1] < arrrows[1]; idx_arr[1]++)
+		{
+			for (idx_arr[2] = 0; idx_arr[2] < arrrows[2]; idx_arr[2]++)
+			{
+				for (idx_arr[3] = 0; idx_arr[3] < arrrows[3]; idx_arr[3]++)
+				{
+					for (j = 0; j < 4; j++)
+					{
+						col_arrs[solution_idx][0][j] = arr1[idx_arr[0]][j];
+						col_arrs[solution_idx][1][j] = arr2[idx_arr[1]][j];
+						col_arrs[solution_idx][2][j] = arr3[idx_arr[2]][j];
+						col_arrs[solution_idx][3][j] = arr4[idx_arr[3]][j];
+					}
+					solution_idx++;
+				}
+			}
+		}
+	}
+
+	/*
 	printf("solution_len : %d \n", solution_len);
 	int **solutions[4];
 	solutions[0] = arr1;
@@ -200,9 +242,20 @@ int		testbed()
 	solutions[2] = arr3;
 	solutions[3] = arr4;
 	
+	int **tmp = solutions[0];
 	printf("val : %d\n",arr1[0][0]);
-	printf("addr : %p\n",solutions[0]);
-	printf("addr : %p\n",arr1);
+	printf("solutions[0] : %p\n",solutions[0]);
+	printf("tmp : %p\n",tmp);
+	tmp++;
+	tmp++;
+	printf("tmp : %p\n",tmp);
+	printf("arr : %p\n",arr1);
+	printf("arr[0] : %p\n",arr1[0]);
+	printf("arr[1] : %p\n",arr1[1]);
+	printf("solutions[0][0] : %p\n", (solutions[0])[0]);
+	printf("addr : %p\n", (*solutions[0]));
+	printf("addr : %p\n", *(solutions[0]));
+	printf("arr1[0] : %p\n",arr1[0]);
 	for (i=0; i < 1; i++)
 	{
 		for( j = 0; j < 4; j++)
@@ -211,7 +264,7 @@ int		testbed()
 		}
 		printf("\n");
 	}
-
+	*/
 }
 
 void	main(int argc, char *argv[])
