@@ -9,6 +9,8 @@ void	ft_solve()
 
 }
 
+//pull test
+
 void	main(int atgc, *char[])
 {
 
