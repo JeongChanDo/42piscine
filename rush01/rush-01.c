@@ -183,13 +183,6 @@ int		testbed()
 			{
 				for (idx_arr[3] = 0; idx_arr[3] < arrrows[3]; idx_arr[3]++)
 				{
-					/*
-					printf("%d %d %d %d\n", arr1[idx_arr[0]][0], arr1[idx_arr[0]][1], arr1[idx_arr[0]][2], arr1[idx_arr[0]][3]);
-					printf("%d %d %d %d\n", arr2[idx_arr[1]][0], arr2[idx_arr[1]][1], arr2[idx_arr[1]][2], arr2[idx_arr[1]][3]);
-					printf("%d %d %d %d\n", arr3[idx_arr[2]][0], arr3[idx_arr[2]][1], arr3[idx_arr[2]][2], arr3[idx_arr[2]][3]);
-					printf("%d %d %d %d\n", arr4[idx_arr[3]][0], arr4[idx_arr[3]][1], arr4[idx_arr[3]][2], arr4[idx_arr[3]][3]);
-					printf("--------\n");
-*/
 					for (j = 0; j < 4; j++)
 						printf("%d ",  arr1[idx_arr[0]][j]);
 					printf("\n");
@@ -204,35 +197,56 @@ int		testbed()
 					printf("\n");
 					printf("--------\n");
 
-
-
 					solution_len++;
 				}
 			}
 		}
 	}
+	printf("complete\n");
 	int col_arrs[solution_len][4][4];
 	int solution_idx = 0;
-	for (idx_arr[0] = 0; idx_arr[0] < arrrows[0]; idx_arr[0]++)
+	
+	for (i = 0; i< solution_len; i++)
 	{
-		for (idx_arr[1] = 0; idx_arr[1] < arrrows[1]; idx_arr[1]++)
+		for (idx_arr[0] = 0; idx_arr[0] < arrrows[0]; idx_arr[0]++)
 		{
-			for (idx_arr[2] = 0; idx_arr[2] < arrrows[2]; idx_arr[2]++)
+			for (idx_arr[1] = 0; idx_arr[1] < arrrows[1]; idx_arr[1]++)
 			{
-				for (idx_arr[3] = 0; idx_arr[3] < arrrows[3]; idx_arr[3]++)
+				for (idx_arr[2] = 0; idx_arr[2] < arrrows[2]; idx_arr[2]++)
 				{
-					for (j = 0; j < 4; j++)
+					for (idx_arr[3] = 0; idx_arr[3] < arrrows[3]; idx_arr[3]++)
 					{
-						col_arrs[solution_idx][0][j] = arr1[idx_arr[0]][j];
-						col_arrs[solution_idx][1][j] = arr2[idx_arr[1]][j];
-						col_arrs[solution_idx][2][j] = arr3[idx_arr[2]][j];
-						col_arrs[solution_idx][3][j] = arr4[idx_arr[3]][j];
+						for (j = 0; j < 4; j++)
+						{
+							col_arrs[solution_idx][0][j] = arr1[idx_arr[0]][j];
+							col_arrs[solution_idx][1][j] = arr2[idx_arr[1]][j];
+							col_arrs[solution_idx][2][j] = arr3[idx_arr[2]][j];
+							col_arrs[solution_idx][3][j] = arr4[idx_arr[3]][j];
+						}
 					}
-					solution_idx++;
 				}
 			}
 		}
+		solution_idx++;
 	}
+
+	int x;
+	int y;
+	for (i = 0; i< solution_len; i++)
+	{
+		for (y = 0; y < 4; y++)
+		{
+			for (x = 0; x < 4; x++)
+			{
+				printf("%d ", col_arrs[i][y][x]);
+			}
+			printf("\n");
+		}
+		printf("--------\n");
+	}
+
+
+
 
 	/*
 	printf("solution_len : %d \n", solution_len);
@@ -273,8 +287,8 @@ void	main(int argc, char *argv[])
 	//char *str = "1 3 4 2 2 2 1 2 1 3 2 2 2 1 3 2";
 	//char *str1 = "1 3 4 2 2 2 1 2 1 3 2 2 2 1 3 2";
 	//char *str2 = "3 1 2 2 1 2 2 3 2 2 3 1 3 1 2 3";
-	char *str3 = "2 3 1 3 3 2 2 1 2 1 2 4 2 4 2 1";
+	//char *str3 = "2 3 1 3 3 2 2 1 2 1 2 4 2 4 2 1";
 	//char *str4 = "4 3 2 1 1 2 2 2 4 3 2 1 1 2 2 2";
 	//char *str = argv[1];
-	ft_receive(str3);
+	//ft_receive(str3);
 }
