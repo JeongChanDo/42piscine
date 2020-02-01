@@ -139,8 +139,84 @@ void	ft_receive(char *str)
 }
 
 
+int		testbed()
+{
+	int arr1[1][4] = {{1, 2, 3, 4}};
+	int arr2[3][4] = {{4, 1, 3, 2},
+					{4, 2, 3, 1},
+					{4, 3, 1, 2}};
+	int arr3[2][4] = {{4, 1, 2, 3},
+					{4, 2, 3, 1}};
+	int arr4[1][4] = {{4, 3, 2, 1}};
+	int i;
+	int j;
+	
+	i = 0;
+	/*
+	printf("sizeof arr1 : %d\n",sizeof(arr1)/sizeof(int));
+	printf("sizeof arr2 : %d\n",sizeof(arr2)/sizeof(int));
+	printf("sizeof arr3 : %d\n",sizeof(arr3)/sizeof(int));
+	printf("sizeof arr4 : %d\n",sizeof(arr4)/sizeof(int));
+	*/
+	int arrlen[4] = {sizeof(arr1)/sizeof(int),
+				sizeof(arr2)/sizeof(int),
+				sizeof(arr3)/sizeof(int),
+				sizeof(arr4)/sizeof(int)};
+	int arrrows[4] = {arrlen[0]/sizeof(int),
+					arrlen[1]/sizeof(int),
+					arrlen[2]/sizeof(int),
+					arrlen[3]/sizeof(int)};
+	for (i = 0 ; i < 4; i++)
+	{
+		printf("arrlen[%d] : %d\n", i, arrlen[i]);
+		printf("arrrows[%d] : %d\n\n", i, arrrows[i]);
+	}
+
+	int idx_arr[] = {0, 0, 0, 0};
+	int solution_len = 0;
+	for (idx_arr[0] = 0; idx_arr[0] < arrrows[0]; idx_arr[0]++)
+	{
+		for (idx_arr[1] = 0; idx_arr[1] < arrrows[1]; idx_arr[1]++)
+		{
+			for (idx_arr[2] = 0; idx_arr[2] < arrrows[2]; idx_arr[2]++)
+			{
+				for (idx_arr[3] = 0; idx_arr[3] < arrrows[3]; idx_arr[3]++)
+				{
+					printf("%d %d %d %d\n", arr1[idx_arr[0]][0], arr1[idx_arr[0]][1], arr1[idx_arr[0]][2], arr1[idx_arr[0]][3]);
+					printf("%d %d %d %d\n", arr2[idx_arr[1]][0], arr2[idx_arr[1]][1], arr2[idx_arr[1]][2], arr2[idx_arr[1]][3]);
+					printf("%d %d %d %d\n", arr3[idx_arr[2]][0], arr3[idx_arr[2]][1], arr3[idx_arr[2]][2], arr3[idx_arr[2]][3]);
+					printf("%d %d %d %d\n", arr4[idx_arr[3]][0], arr4[idx_arr[3]][1], arr4[idx_arr[3]][2], arr4[idx_arr[3]][3]);
+					printf("--------\n");
+
+					solution_len++;
+				}
+			}
+		}
+	}
+	printf("solution_len : %d \n", solution_len);
+	int **solutions[4];
+	solutions[0] = arr1;
+	solutions[1] = arr2;
+	solutions[2] = arr3;
+	solutions[3] = arr4;
+	
+	printf("val : %d\n",arr1[0][0]);
+	printf("addr : %p\n",solutions[0]);
+	printf("addr : %p\n",arr1);
+	for (i=0; i < 1; i++)
+	{
+		for( j = 0; j < 4; j++)
+		{
+			printf("%d ",solutions[0][i][j]);
+		}
+		printf("\n");
+	}
+
+}
+
 void	main(int argc, char *argv[])
 {
+	testbed();
 	//char *str = "1 3 4 2 2 2 1 2 1 3 2 2 2 1 3 2";
 	//char *str1 = "1 3 4 2 2 2 1 2 1 3 2 2 2 1 3 2";
 	//char *str2 = "3 1 2 2 1 2 2 3 2 2 3 1 3 1 2 3";
