@@ -6,7 +6,7 @@
 /*   By: jdo <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/01 01:21:52 by jdo               #+#    #+#             */
-/*   Updated: 2020/02/01 13:33:50 by jdo              ###   ########.fr       */
+/*   Updated: 2020/02/01 14:12:53 by jdo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ int	search_zerone_cnt(int mat[6][6])
 		if (zero_cnt == 1)
 			pos_cnt++;
 	}
-	printf("zero one cnt : %d\n",pos_cnt);
+	//printf("zero one cnt : %d\n",pos_cnt);
 	return (pos_cnt);
 }
 
@@ -114,7 +114,7 @@ int	search_zerone(int zerone_cnt, int *coord[2], int mat[6][6])
 				{
 					coord[pos_cnt][0] = i;
 					coord[pos_cnt][1] = j;
-					printf("zero_one pos : (%d, %d)\n", i, j);
+					//printf("zero_one pos : (%d, %d)\n", i, j);
 				}
 			}
 			pos_cnt++;
@@ -139,7 +139,7 @@ int	search_zerone(int zerone_cnt, int *coord[2], int mat[6][6])
 				{
 					coord[pos_cnt][0] = i;
 					coord[pos_cnt][1] = j;
-					printf("zero_one pos : (%d, %d)\n", i, j);
+					//printf("zero_one pos : (%d, %d)\n", i, j);
 				}
 			}
 			pos_cnt++;
@@ -165,13 +165,75 @@ int	find_empty_val(int x, int y, int mat[6][6])
 
 	if (zero_cnt != 1)
 	{
-		printf("horizontal zero one not found\n");
+		//printf("horizontal zero one not found\n");
 	}
 	else
 	{
-		//implement is needed for zero one pos insert empty number;
+		for (j = 1; j < 5; j++)
+		{
+			if (mat[i][j] != 0)
+			{
+				for (val_idx = 0; val_idx < 4; val_idx++)
+				{
+					if(val[val_idx] == mat[i][j])
+					{
+						val[val_idx] = 9;
+					}
+				}
+			}
+		}
+
+		for (val_idx = 0; val_idx < 4; val_idx++)
+		{
+			if(val[val_idx] != 9)
+			{
+				//printf("horizontal direction zero one is founded insert %d(%d, %d) \n", val_idx+1, x, y);
+				mat[x][y] = val_idx+1;
+			}
+		}
 	}
 
+
+	//vertical check
+	zero_cnt = 0;
+	j = y;
+	for (i = 1; i < 5; i++)
+	{
+		if (mat[i][j] == 0)
+			zero_cnt++;
+	}
+	if (zero_cnt != 1)
+	{
+		//printf("vertical zero one not found\n");
+	}
+	else
+	{
+		for (i = 1; i < 5; i++)
+		{
+			if (mat[i][j] != 0)
+			{
+				for (val_idx = 0; val_idx < 4; val_idx++)
+				{
+					if(val[val_idx] == mat[i][j])
+					{
+						val[val_idx] = 9;
+					}
+				}
+			}
+		}
+
+		for (val_idx = 0; val_idx < 4; val_idx++)
+		{
+			if(val[val_idx] != 9)
+			{
+				//printf("vertical direction zero one is founded insert %d(%d, %d) \n", val_idx+1, x, y);
+				mat[x][y] = val_idx+1;
+			}
+		}
+
+	}
+
+	//print_mat(mat);
 
 }
 void	fill_zerone(int zerone_cnt, int *coord[2], int mat[6][6])
@@ -367,14 +429,65 @@ void	rush(char *str)
 
 }
 
+void	rush_simple(char *str)
+{
+	int input[16];
+	int i;
+	int j;
+
+	j = 0;
+	i = 0;
+	while (i < 16)
+	{
+		input[i] = str[2 * i] - '0';
+		i++;
+	}
+	int mat[6][6] = {
+						{0, input[0], input[1], input[2], input[3], 0},
+						{input[8], 0, 0, 0, 0, input[12]},
+						{input[9], 0, 0, 0, 0, input[13]},
+						{input[10], 0, 0, 0, 0, input[14]},
+						{input[11], 0, 0, 0, 0, input[15]},
+						{0, input[4], input[5], input[6], input[7], 0}
+					};
+	insert_mat(input, mat);
+	int zerone_cnt = search_zerone_cnt(mat);
+	int coord[zerone_cnt][2];
+	search_zerone(zerone_cnt, coord, mat);
+	fill_zerone(zerone_cnt, coord, mat);
+	print_mats(mat);
+
+}
+
+void	show_examples(char **str)
+{
+
+}
+
+
 void	main(int argc, char *argv[])
 {
-	char *str = "2 3 1 3 3 2 2 1 2 1 2 4 2 4 2 1";
-	//char *str = "4 3 2 1 1 2 2 2 4 3 2 1 1 2 2 2";
+	char *str = "1 3 4 2 2 2 1 2 1 3 2 2 2 1 3 2";
+	char *str1 = "1 3 4 2 2 2 1 2 1 3 2 2 2 1 3 2";
+	char *str2 = "3 1 2 2 1 2 2 3 2 2 3 1 3 1 2 3";
+	char *str3 = "2 3 1 3 3 2 2 1 2 1 2 4 2 4 2 1";
+	char *str4 = "4 3 2 1 1 2 2 2 4 3 2 1 1 2 2 2";
 	/*
 	if (argc != 2)
 		write(1, "Error\n", 6);
 	*/
 	//char *str = argv[1];
-	rush(str);
+	//rush(str);
+	printf("input : %s \n", str1);
+	rush_simple(str1);
+	printf("----------\n");
+	printf("input : %s \n", str2);
+	rush_simple(str2);
+	printf("----------\n");
+	printf("input : %s \n", str3);
+	rush_simple(str3);
+	printf("----------\n");
+	printf("input : %s \n", str4);
+	rush_simple(str4);
+	printf("----------\n");
 }
