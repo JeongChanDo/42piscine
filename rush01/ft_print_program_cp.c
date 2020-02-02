@@ -14,11 +14,8 @@
 
 int	ft_isspace(char c)
 {
-	if (!(c > 48 && c < 53)
-		return ();
-	else
-		return (0);
-	return(!(c > 48  && c < 53) ? 0 : 1);
+	printf("ft_isspace input char::  %c char int ::  %d \n",c, c);
+	return((c > 8 && c < 14) || (c == 32) ? 0 : 1);
 }
 
 int	main(int argc, char *argv[])
@@ -30,14 +27,16 @@ int	main(int argc, char *argv[])
 	i = 0;
 	index = 0;
 
-	if (argc != 2)
-		return (0);	
+	
 	while (argv[1][i] != '\0')
 	{	
 		if (ft_isspace(argv[1][i]) == 1) //32가 아니면  true
 		{
-			input_val[index] = argv[1][i] - '0';
-			index++;
+			if (argv[1][i] > 48 && argv[1][i] < 53)
+			{
+				input_val[index] = argv[1][i] - '0';
+				index++;
+			}
 		}
 		i++;
 	}

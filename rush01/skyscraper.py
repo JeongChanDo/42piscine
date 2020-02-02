@@ -49,11 +49,13 @@ def solve(s, l, r, t, b, verbose):
         print("")
 	for solution in itertools.product(*rows):
 		if is_valid_solution(s, solution, t, b):
-                        print("valid solution : ", solution)
+        #                print("valid solution : ", solution)
 			return solution
+        """
                 else:
                         print("invalid solution : ", solution)
-	return ["no solution found"]
+	"""
+        return ["no solution found"]
 
 def main(argv):
 	s = 0
