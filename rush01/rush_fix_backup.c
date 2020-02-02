@@ -224,7 +224,7 @@ int		*arraysize(int *input, int res_arr[][6])
 }
 
 
-int		testbed()
+void	ft_skyscrapper(int *input)
 {
 	int i;
 	int j;
@@ -361,17 +361,4 @@ int		testbed()
 		}
 	}
 
-}
-
-void	main(int argc, char *argv[])
-{
-	testbed();
-
-	//char *str = "1 3 4 2 2 2 1 2 1 3 2 2 2 1 3 2";
-	//char *str1 = "1 3 4 2 2 2 1 2 1 3 2 2 2 1 3 2";
-	//char *str2 = "3 1 2 2 1 2 2 3 2 2 3 1 3 1 2 3";
-	//char *str3 = "2 3 1 3 3 2 2 1 2 1 2 4 2 4 2 1";
-	//char *str4 = "4 3 2 1 1 2 2 2 4 3 2 1 1 2 2 2";
-	//char *str = argv[1];
-	//ft_receive(str3);
 }

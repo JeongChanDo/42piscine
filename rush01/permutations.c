@@ -41,5 +41,4 @@ int main(void)
 	int arr[] = {1, 2, 3, 4};
 
 	permutations(arr, 0, 3);
-	printf("cnt = %d\n", cnt);
 }

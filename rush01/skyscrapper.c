@@ -2,46 +2,20 @@
 #include <unistd.h>
 #include <stdlib.h>
 
-void	ft_print_board(int board[4][4])
-{
-	int i;
-	int j;
-
-	i = 0;
-	j = 0;
-	printf("---------\n");
-	while (i < 4)
-	{
-		j = 0;
-		while (j < 4)
-		{
-			printf(" %d ",board[i][j]);	
-			j++;
-		}
-		printf("\n");
-		i++;
-	}
-	printf("----------\n");
-}
-
-//가능한 숫자 정렬
 void	ft_possible_case(int res_arr[24][6]){
 	int i;
 	int j;
-	// 1st column, 2nd column, 3rd column, 4th column
 	int psb_rows[4];
 	int	left;
 	int right;
 	int max;
+	int z;
 
+	z = 0;
 	left = 0;
 	right = 0;
 	max = 0;
 
-	int z = 0;
-
-
-	//경우의수 만들기 조합알고리즘, 재귀로 구현할것
 
 	for (psb_rows[0] = 1; psb_rows[0] <= 4; psb_rows[0]++)
 	{
@@ -58,10 +32,6 @@ void	ft_possible_case(int res_arr[24][6]){
 									&& (psb_rows[1] != psb_rows[3])) 
 								&& (psb_rows[2] != psb_rows[3])) )
 					{
-						/*board를 봤을때 최소 하나는 보임, (4층 건물이 바로앞에
-						 * 있는경우)
-						 * left_view =1
-						 */
 						max = 0;
 						left = 0;
 						for (i =0; i < 4; i++)
@@ -102,32 +72,6 @@ void	ft_possible_case(int res_arr[24][6]){
 	}
 }
 
-void	ft_receive(char *str)
-{
-	int recv[16];
-	int i;
-	int j;
-
-	j = 0;
-	i = 0;
-	while (i < 16)
-	{
-		recv[i] = str[2 * i] - '0';
-		i++;
-	}
-
-	// board declaration and initailization devision is needed.
-	int board[4][4] = {{0, 0, 0, 0},
-						{0, 0, 0, 0},
-						{0, 0, 0, 0},
-						{0, 0, 0, 0}};
-	ft_print_board(board);
-
-	int res_arr[24][6];
-	ft_possible_case(res_arr);
-
-}
-
 
 int	is_valid(int res_arr[24][6], int t, int b, int tmp[4])
 {
@@ -135,7 +79,6 @@ int	is_valid(int res_arr[24][6], int t, int b, int tmp[4])
 	int j;
 
 	int valid_cnt = 0;
-	//top, bottom value check
 	for (i = 0; i <24; i++)
 	{
 		valid_cnt = 0;
@@ -143,7 +86,6 @@ int	is_valid(int res_arr[24][6], int t, int b, int tmp[4])
 		{
 			if (res_arr[i][5] == b)
 			{
-				//4 value check 
 				for (j = 0; j <4; j++)
 				{
 					if (res_arr[i][j+1] == tmp[j])
@@ -166,7 +108,6 @@ int		**(psbarray(int res_arr[24][6], int left, int right))
 	int count;
 	int **temparray;
 
-	//동적 배열 만들기
 	row = 0;
 	count = 0;
 	while (row < 24)
@@ -178,8 +119,6 @@ int		**(psbarray(int res_arr[24][6], int left, int right))
 
 	temparray = (int **)malloc(count * sizeof(int *));
 	
-
-	//동적배열에 경우의 수 대입
 	row = 0;
 	count = 0;
 	while (row < 24)
@@ -224,7 +163,7 @@ int		*arraysize(int *input, int res_arr[][6])
 }
 
 
-int		testbed()
+void	ft_skyscrapper(int *input)
 {
 	int i;
 	int j;
@@ -240,12 +179,6 @@ int		testbed()
 	int solution_idx;
 	int x;
 	int y;
-
-
-	//top 4 -> bottom 4 -> left 4 -> right 4;
-	//int input[16] = {4, 3, 2, 1, 1, 2, 2, 2, 4, 3, 2, 1, 1, 2, 2, 2};
-	//int input[16] = {1, 3, 4, 2, 2, 2, 1, 2, 1, 3, 2, 2, 2, 1, 3, 2};
-	int input[16] = {3, 2, 2, 1, 1, 3, 2, 2, 3, 2, 3, 1, 1, 3, 2, 2};
 
 	ft_possible_case(res_arr);
 	arr1 = psbarray(res_arr, input[8] ,input[12]);
@@ -271,7 +204,6 @@ int		testbed()
 	solution_len = 0;
 	solution_idx = 0;
 
-	//soltuion length calculation
 	for (idx_arr[0] = 0; idx_arr[0] < arrrows[0]; idx_arr[0]++)
 	{
 		for (idx_arr[1] = 0; idx_arr[1] < arrrows[1]; idx_arr[1]++)
@@ -286,10 +218,7 @@ int		testbed()
 		}
 	}
 
-	//insert to 3d ( solution_len x 4 x 4)
 	int col_arrs[solution_len][4][4];
-
-	// solution_len x 4 x 4
 	for (idx_arr[0] = 0; idx_arr[0] < arrrows[0]; idx_arr[0]++)
 	{
 		for (idx_arr[1] = 0; idx_arr[1] < arrrows[1]; idx_arr[1]++)
@@ -314,11 +243,8 @@ int		testbed()
 	int psb_rows[24][6];
 	ft_possible_case(psb_rows);
 	
-	//check_vertically
 	int tmp[4];
 
-	//left 4-> right 4-> top 4 -> bottom 4;
-	// top : 0 ~ 3, bottom 4 ~ 8;
 	int top = 0;
 	int bottom = top + 4;
 	int z = 0;
@@ -335,7 +261,6 @@ int		testbed()
 			z = 0;
 			for( x = 0; x < 4; x++)
 			{
-				//temp vertical arr
 				tmp[z] = col_arrs[i][x][y];
 				z++;
 			}
@@ -361,17 +286,4 @@ int		testbed()
 		}
 	}
 
-}
-
-void	main(int argc, char *argv[])
-{
-	testbed();
-
-	//char *str = "1 3 4 2 2 2 1 2 1 3 2 2 2 1 3 2";
-	//char *str1 = "1 3 4 2 2 2 1 2 1 3 2 2 2 1 3 2";
-	//char *str2 = "3 1 2 2 1 2 2 3 2 2 3 1 3 1 2 3";
-	//char *str3 = "2 3 1 3 3 2 2 1 2 1 2 4 2 4 2 1";
-	//char *str4 = "4 3 2 1 1 2 2 2 4 3 2 1 1 2 2 2";
-	//char *str = argv[1];
-	//ft_receive(str3);
 }
