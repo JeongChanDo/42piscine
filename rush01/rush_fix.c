@@ -249,10 +249,8 @@ int		testbed()
 
 	//top 4 -> bottom 4 -> left 4 -> right 4;
 	//int input[16] = {4, 3, 2, 1, 1, 2, 2, 2, 4, 3, 2, 1, 1, 2, 2, 2};
-	
-
-	// top 4 -> bottom 4 -> left 4 -> right 4
-	int input[16] = {1, 3, 4, 2, 2, 2, 1, 2, 1, 3, 2, 2, 2, 1, 3, 2};
+	//int input[16] = {1, 3, 4, 2, 2, 2, 1, 2, 1, 3, 2, 2, 2, 1, 3, 2};
+	int input[16] = {3, 2, 2, 1, 1, 3, 2, 2, 3, 2, 3, 1, 1, 3, 2, 2};
 
 	int **arr1 = psbarray(res_arr, input[8] ,input[12]);
 	int **arr2 = psbarray(res_arr, input[9] ,input[13]);
