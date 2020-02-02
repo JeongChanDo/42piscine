@@ -20,16 +20,16 @@ def satisfies_l(s, row, l):
 			curr_max = entry
 			seen += 1
 			if entry == s or seen > l:
-                                print("row : ", row, " - entry :" ,entry, s, l)
+  #                              print("row : ", row, " - entry :" ,entry, s, l)
 				break
 	return l == seen
 
 def possible_rows(s, l, r):
 	p = []
 	for row in itertools.permutations(range(1, s + 1)):
-                print("add - ", row)
+#                print("add - ", row)
 		if satisfies_l(s, row, l) and satisfies_r(s, row, r):
-                        print("satisfied - " , row)
+ #                       print("satisfied - " , row)
 			p.append(list(row))
         print("-----")
 	return p
