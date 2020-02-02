@@ -1,52 +1,71 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_a.c                                             :+:      :+:    :+:   */
+/*   ft_print_program.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eunpark <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/02/02 01:07:22 by eunpark           #+#    #+#             */
-/*   Updated: 2020/02/02 02:28:30 by eunpark          ###   ########.fr       */
+/*   Created: 2020/02/02 18:06:45 by eunpark           #+#    #+#             */
+/*   Updated: 2020/02/02 18:48:39 by eunpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdlib.h>
+#include <unistd.h>
 #include <stdio.h>
 
-int	ft_isspace(char c)
+int		*ft_input_arr(char *argv)
 {
-	if (!(c > 48 && c < 53)
-		return ();
-	else
-		return (0);
-	return(!(c > 48  && c < 53) ? 0 : 1);
-}
-
-int	main(int argc, char *argv[])
-{
-	int i;
-	int index;
-	int input_val[16];
+	int		i;
+	int		index;
+	int		*input_val;
 
 	i = 0;
-	index = 0;
-
-	if (argc != 2)
-		return (0);	
-	while (argv[1][i] != '\0')
-	{	
-		if (ft_isspace(argv[1][i]) == 1) //32가 아니면  true
-		{
-			input_val[index] = argv[1][i] - '0';
-			index++;
-		}
+	index = -1;
+	input_val = (int*)malloc(sizeof(int) * 16);
+	while (argv[i] != '\0')
+	{
+		if (i % 2 == 0)
+			input_val[++index] = argv[i] - '0';
 		i++;
 	}
+	return (input_val);
+}
 
-	int j = 0;
-	while(j < 16)
+int		ft_error_chk(char *argv)
+{
+	int	i;
+	int	count;
+
+	i = 0;
+	count = 0;
+	while (argv[i] != '\0')
 	{
-		printf("input_val[%d] ::  %d\n ",j, input_val[j]);
-		j++;
+		if (i % 2 == 0)
+		{
+			if (!(argv[i] > '0' && argv[i] < '5'))
+				return (0);
+			count++;
+		}
+		else if (i % 2 == 1 && !(argv[i] == 32))
+			return (0);
+		i++;
 	}
+	if (argv[i - 1] == ' ' || count != 16)
+		return (0);
+	return (1);
+}
 
+int		main(int argc, char *argv[])
+{
+	int	*input_val;
+
+	if (argc != 2)
+		return (0);
+	if (ft_error_chk(argv[1]) == 0)
+	{
+		write(1, "Error\n", 6);
+		return (0);
+	}
+	input_val = ft_input_arr(argv[1]);
 }
