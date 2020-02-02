@@ -16,7 +16,6 @@ void	ft_possible_case(int res_arr[24][6]){
 	right = 0;
 	max = 0;
 
-
 	for (psb_rows[0] = 1; psb_rows[0] <= 4; psb_rows[0]++)
 	{
 		for (psb_rows[1] = 1; psb_rows[1] <= 4; psb_rows[1]++)
@@ -64,41 +63,47 @@ void	ft_possible_case(int res_arr[24][6]){
 			}
 		}
 	}
-	int tmp[6];
-	for (z = 0; z < 24; z++)
-	{
-		for (i = 0; i < 6; i++)
-			tmp[i] = res_arr[z][i];
-	}
 }
 
 
-int	is_valid(int res_arr[24][6], int t, int b, int tmp[4])
-{
-	int i;
-	int j;
 
-	int valid_cnt = 0;
-	for (i = 0; i <24; i++)
+int ft_valid_cnt(int res_arr[6], int t, int b, int tmp[4])
+{
+	int valid_cnt;
+	int j;
+	valid_cnt = 0;
+	if (res_arr[0] == t)
 	{
-		valid_cnt = 0;
-		if (res_arr[i][0] == t)
+		if (res_arr[5] == b)
 		{
-			if (res_arr[i][5] == b)
+			for (j = 0; j <4; j++)
 			{
-				for (j = 0; j <4; j++)
-				{
-					if (res_arr[i][j+1] == tmp[j])
-						valid_cnt++;
-				}
+				if (res_arr[j+1] == tmp[j])
+					valid_cnt++;
 			}
 		}
+	}
+	return (valid_cnt);
+}
+
+int	is_valid(int res_arr[24][6], int t, int b, int tmp[4])
+{
+	int idx_arr[3];
+	int i;
+	int j;
+	int valid_cnt;
+	
+	i = 0;
+	while (i < 24)
+	{
+		valid_cnt = ft_valid_cnt(res_arr[i], t, b, tmp);
 		if (valid_cnt == 4)
 		{
-			return valid_cnt;
+			return (valid_cnt);
 		}
+		i++;
 	}
-	return valid_cnt;
+	return (valid_cnt);
 }
 
 int		**(psbarray(int res_arr[24][6], int left, int right))
@@ -191,39 +196,7 @@ void ft_arr_init(int **arr[4], int res_arr[24][6], int *input)
 	arr[3] = psbarray(res_arr, input[11] ,input[15]);
 	printf("arr1 : %p \n", arr[0]);
 }
-/*
 
-void	solutions_init(int **arr[4], int *col_arrs[4][4], int idx_arr[4], int row_cnt[4])
-{
-
-	int solution_idx;
-	int j;
-
-	j = 0;
-	solution_idx = 0;
-	for (idx_arr[0] = 0; idx_arr[0] < row_cnt[0]; idx_arr[0]++)
-	{
-		for (idx_arr[1] = 0; idx_arr[1] < row_cnt[1]; idx_arr[1]++)
-		{
-			for (idx_arr[2] = 0; idx_arr[2] < row_cnt[2]; idx_arr[2]++)
-			{
-				for (idx_arr[3] = 0; idx_arr[3] < row_cnt[3]; idx_arr[3]++)
-				{
-					for (j = 0; j < 4; j++)
-					{
-						col_arrs[solution_idx][0][j] = arr[0][idx_arr[0]][j];
-						col_arrs[solution_idx][1][j] = arr[1][idx_arr[1]][j];
-						col_arrs[solution_idx][2][j] = arr[2][idx_arr[2]][j];
-						col_arrs[solution_idx][3][j] = arr[3][idx_arr[3]][j];
-					}
-					solution_idx++;
-				}
-			}
-		}
-	}
-
-}
-*/
 
 void	ft_skyscrapper(int *input)
 {
@@ -242,8 +215,6 @@ void	ft_skyscrapper(int *input)
 	ft_possible_case(res_arr);
 	ft_arr_init(arr, res_arr, input);
 
-
-
 	row_len = arraysize(input,res_arr);
 
 	
@@ -261,12 +232,19 @@ void	ft_skyscrapper(int *input)
 	}
 
 	solution_idx = 0;
+	j = 0;
+
+
+
 	solution_len = ft_solutions_cnt(idx_arr, row_cnt);
 
 
 	int col_arrs[solution_len][4][4];
-	
-	j = 0;
+
+	printf("row_cnt : %p \n");
+	//ft_generate_solutions(col_arrs, solution_len, arr, idx_arr, row_cnt);
+
+
 	solution_idx = 0;
 	for (idx_arr[0] = 0; idx_arr[0] < row_cnt[0]; idx_arr[0]++)
 	{
@@ -278,18 +256,14 @@ void	ft_skyscrapper(int *input)
 				{
 					for (j = 0; j < 4; j++)
 					{
-						col_arrs[solution_idx][0][j] = arr[0][idx_arr[0]][j];
-						col_arrs[solution_idx][1][j] = arr[1][idx_arr[1]][j];
-						col_arrs[solution_idx][2][j] = arr[2][idx_arr[2]][j];
-						col_arrs[solution_idx][3][j] = arr[3][idx_arr[3]][j];
+						for (i = 0; i < 4; i++)
+							col_arrs[solution_idx][i][j] = arr[i][idx_arr[i]][j];
 					}
 					solution_idx++;
 				}
 			}
 		}
 	}
-
-
 
 
 	int psb_rows[24][6];
