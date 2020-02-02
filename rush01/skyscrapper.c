@@ -203,10 +203,35 @@ void ft_arr_init(int **arr[4], int res_arr[24][6], int *input)
 	arr[1] = psbarray(res_arr, input[9] ,input[13]);
 	arr[2] = psbarray(res_arr, input[10] ,input[14]);
 	arr[3] = psbarray(res_arr, input[11] ,input[15]);
-	printf("arr1 : %p \n", arr[0]);
+}
+int is_valid_solution(int i, int col_arrs[4][4], int psb_rows[24][6], int *input)
+{
+	int x;
+	int y;
+	int solution;
+	int valid_cnt;
+
+	valid_cnt = ft_get_valid_cnt(col_arrs[i], psb_rows, input);
+	if (valid_cnt == 16)
+	{
+		solution = i;
+	}
+	if (solution != 0)
+	{
+		for(x = 0; x < 4; x++)
+		{
+			for(y = 0; y < 4; y++)
+			{
+				printf("%d ",col_arrs[x][y]);
+			}
+			printf("\n");
+		}
+		return (1);
+	}
+	return (0);
 }
 
-int	ft_get_valid_cnt(int *col_arrs[4][4], int psb_rows[24][6], int *input)
+int	ft_get_valid_cnt(int col_arrs[4][4], int psb_rows[24][6], int *input)
 {
 	int valid_cnt;
 	int top;
@@ -225,7 +250,7 @@ int	ft_get_valid_cnt(int *col_arrs[4][4], int psb_rows[24][6], int *input)
 		z = 0;
 		for( x = 0; x < 4; x++)
 		{
-			tmp[z] = col_arrs[i][x][y];
+			tmp[z] = col_arrs[x][y];
 			z++;
 		}
 		valid_cnt = valid_cnt + is_valid(psb_rows, input[top], input[bottom], tmp);
@@ -249,22 +274,19 @@ void	ft_skyscrapper(int *input)
 	int x;
 	int y;
 	int **arr[4];
+	int psb_rows[24][6];
 
-	ft_possible_case(res_arr);
-	ft_arr_init(arr, res_arr, input);
-	row_len = arraysize(input,res_arr);
+	ft_possible_case(psb_rows);
+	ft_arr_init(arr, psb_rows, input);
+	row_len = arraysize(input,psb_rows);
+
 
 	i = 0;
+	j = 0;
+	solution_idx = 0;
 	while (i < 4)
 		row_cnt[i++] = row_len[i]/sizeof(int);
-	i = 0;
-	while (i < 4)
-		idx_arr[i++] = 0;
-		i++;
-
-
-	solution_idx = 0;
-	j = 0;
+	
 	solution_len = ft_solution_cnt(idx_arr, row_cnt);
 	int col_arrs[solution_len][4][4];
 	for (idx_arr[0] = 0; idx_arr[0] < row_cnt[0]; idx_arr[0]++)
@@ -286,54 +308,17 @@ void	ft_skyscrapper(int *input)
 		}
 	}
 
-	int psb_rows[24][6];
-	ft_possible_case(psb_rows);
-	
-	int tmp[4];
-	int top = 0;
-	int bottom = top + 4;
-	int z = 0;
-	int valid_cnt = 0; 
 
-	int solution;
-	for( i = 0 ; i < solution_len; i++)
+	i = 0;
+	while ( i < solution_len && !is_valid_solution(i,col_arrs[i++],psb_rows,input));
+
+	/*
+	while ( i < solution_len)
 	{
-		//valid_cnt = ft_get_valid_cbt(psb_rw)
-	//	valid_cnt = ft_get_valid_cnt(col_arrs, psb_rows, input);
-
-		valid_cnt = 0;
-		top = 0;
-		bottom = top + 4;
-		for( y = 0; y < 4; y++)
-		{
-			z = 0;
-			for( x = 0; x < 4; x++)
-			{
-				tmp[z] = col_arrs[i][x][y];
-				z++;
-			}
-			valid_cnt = valid_cnt + is_valid(psb_rows, input[top], input[bottom], tmp);
-			top++;
-			bottom++;
-		}
-
-
-		if (valid_cnt == 16)
-		{
-			solution = i;
+		if (is_valid_solution(i, col_arrs[i], psb_rows, input))
 			break;
-		}
+		i++;
 	}
-	if (solution != 0)
-	{
-		for(x = 0; x < 4; x++)
-		{
-			for(y = 0; y < 4; y++)
-			{
-				printf("%d ",col_arrs[solution][x][y]);
-			}
-			printf("\n");
-		}
-	}
+	*/
 
 }
