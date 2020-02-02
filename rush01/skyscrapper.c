@@ -206,6 +206,35 @@ void ft_arr_init(int **arr[4], int res_arr[24][6], int *input)
 	printf("arr1 : %p \n", arr[0]);
 }
 
+int	ft_get_valid_cnt(int *col_arrs[4][4], int psb_rows[24][6], int *input)
+{
+	int valid_cnt;
+	int top;
+	int bottom;
+	int tmp[4];
+	int x;
+	int y;
+	int z;
+	int i;
+
+	valid_cnt = 0;
+	top = 0;
+	bottom = top + 4;
+	for( y = 0; y < 4; y++)
+	{
+		z = 0;
+		for( x = 0; x < 4; x++)
+		{
+			tmp[z] = col_arrs[i][x][y];
+			z++;
+		}
+		valid_cnt = valid_cnt + is_valid(psb_rows, input[top], input[bottom], tmp);
+		top++;
+		bottom++;
+	}
+	return (valid_cnt);
+}
+
 
 void	ft_skyscrapper(int *input)
 {
@@ -223,38 +252,21 @@ void	ft_skyscrapper(int *input)
 
 	ft_possible_case(res_arr);
 	ft_arr_init(arr, res_arr, input);
-
 	row_len = arraysize(input,res_arr);
 
-	
 	i = 0;
 	while (i < 4)
-	{
-		row_cnt[i] = row_len[i]/sizeof(int);
-		i++;
-	}
+		row_cnt[i++] = row_len[i]/sizeof(int);
 	i = 0;
 	while (i < 4)
-	{
-		idx_arr[i] = 0;
+		idx_arr[i++] = 0;
 		i++;
-	}
+
 
 	solution_idx = 0;
 	j = 0;
-
-
-
 	solution_len = ft_solution_cnt(idx_arr, row_cnt);
-
-
 	int col_arrs[solution_len][4][4];
-
-	printf("row_cnt : %p \n");
-	//ft_generate_solutions(col_arrs, solution_len, arr, idx_arr, row_cnt);
-
-
-	solution_idx = 0;
 	for (idx_arr[0] = 0; idx_arr[0] < row_cnt[0]; idx_arr[0]++)
 	{
 		for (idx_arr[1] = 0; idx_arr[1] < row_cnt[1]; idx_arr[1]++)
@@ -274,12 +286,10 @@ void	ft_skyscrapper(int *input)
 		}
 	}
 
-
 	int psb_rows[24][6];
 	ft_possible_case(psb_rows);
 	
 	int tmp[4];
-
 	int top = 0;
 	int bottom = top + 4;
 	int z = 0;
@@ -288,14 +298,8 @@ void	ft_skyscrapper(int *input)
 	int solution;
 	for( i = 0 ; i < solution_len; i++)
 	{
-
-
-int	ft_get_valid_cnt(int psb_rows[24][6], int input[14])
-{
-
-}
-
-		int tmp[4];
+		//valid_cnt = ft_get_valid_cbt(psb_rw)
+	//	valid_cnt = ft_get_valid_cnt(col_arrs, psb_rows, input);
 
 		valid_cnt = 0;
 		top = 0;
@@ -312,7 +316,6 @@ int	ft_get_valid_cnt(int psb_rows[24][6], int input[14])
 			top++;
 			bottom++;
 		}
-
 
 
 		if (valid_cnt == 16)
