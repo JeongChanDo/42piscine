@@ -162,83 +162,135 @@ int		*arraysize(int *input, int res_arr[][6])
 	return size; 
 }
 
-
-void	ft_skyscrapper(int *input)
+int	ft_solutions_cnt(int idx_arr[4] , int row_cnt[4])
 {
-	int i;
-	int j;
-	int res_arr[24][6];
-	int **arr1;
-	int **arr2;
-	int **arr3;
-	int **arr4;
-	int *arrlen;
-	int arrrows[4];
-	int idx_arr[4];
 	int solution_len;
-	int solution_idx;
-	int x;
-	int y;
 
-	ft_possible_case(res_arr);
-	arr1 = psbarray(res_arr, input[8] ,input[12]);
-	arr2 = psbarray(res_arr, input[9] ,input[13]);
-	arr3 = psbarray(res_arr, input[10] ,input[14]);
-	arr4 = psbarray(res_arr, input[11] ,input[15]);
-	
-	arrlen = arraysize(input,res_arr);
-	
-	i = 0;
-	while (i < 4)
-	{
-		arrrows[i] = arrlen[i]/sizeof(int);
-		i++;
-	}
-
-	i = 0;
-	while (i < 4)
-	{
-		idx_arr[i] = 0;
-		i++;
-	}
 	solution_len = 0;
-	solution_idx = 0;
-
-	for (idx_arr[0] = 0; idx_arr[0] < arrrows[0]; idx_arr[0]++)
+	for (idx_arr[0] = 0; idx_arr[0] < row_cnt[0]; idx_arr[0]++)
 	{
-		for (idx_arr[1] = 0; idx_arr[1] < arrrows[1]; idx_arr[1]++)
+		for (idx_arr[1] = 0; idx_arr[1] < row_cnt[1]; idx_arr[1]++)
 		{
-			for (idx_arr[2] = 0; idx_arr[2] < arrrows[2]; idx_arr[2]++)
+			for (idx_arr[2] = 0; idx_arr[2] < row_cnt[2]; idx_arr[2]++)
 			{
-				for (idx_arr[3] = 0; idx_arr[3] < arrrows[3]; idx_arr[3]++)
+				for (idx_arr[3] = 0; idx_arr[3] < row_cnt[3]; idx_arr[3]++)
 				{
 					solution_len++;
 				}
 			}
 		}
 	}
+	return (solution_len);
+}
 
-	int col_arrs[solution_len][4][4];
-	for (idx_arr[0] = 0; idx_arr[0] < arrrows[0]; idx_arr[0]++)
+void ft_arr_init(int **arr[4], int res_arr[24][6], int *input)
+{
+	arr[0] = psbarray(res_arr, input[8] ,input[12]);
+	arr[1] = psbarray(res_arr, input[9] ,input[13]);
+	arr[2] = psbarray(res_arr, input[10] ,input[14]);
+	arr[3] = psbarray(res_arr, input[11] ,input[15]);
+	printf("arr1 : %p \n", arr[0]);
+}
+/*
+
+void	solutions_init(int **arr[4], int *col_arrs[4][4], int idx_arr[4], int row_cnt[4])
+{
+
+	int solution_idx;
+	int j;
+
+	j = 0;
+	solution_idx = 0;
+	for (idx_arr[0] = 0; idx_arr[0] < row_cnt[0]; idx_arr[0]++)
 	{
-		for (idx_arr[1] = 0; idx_arr[1] < arrrows[1]; idx_arr[1]++)
+		for (idx_arr[1] = 0; idx_arr[1] < row_cnt[1]; idx_arr[1]++)
 		{
-			for (idx_arr[2] = 0; idx_arr[2] < arrrows[2]; idx_arr[2]++)
+			for (idx_arr[2] = 0; idx_arr[2] < row_cnt[2]; idx_arr[2]++)
 			{
-				for (idx_arr[3] = 0; idx_arr[3] < arrrows[3]; idx_arr[3]++)
+				for (idx_arr[3] = 0; idx_arr[3] < row_cnt[3]; idx_arr[3]++)
 				{
 					for (j = 0; j < 4; j++)
 					{
-						col_arrs[solution_idx][0][j] = arr1[idx_arr[0]][j];
-						col_arrs[solution_idx][1][j] = arr2[idx_arr[1]][j];
-						col_arrs[solution_idx][2][j] = arr3[idx_arr[2]][j];
-						col_arrs[solution_idx][3][j] = arr4[idx_arr[3]][j];
+						col_arrs[solution_idx][0][j] = arr[0][idx_arr[0]][j];
+						col_arrs[solution_idx][1][j] = arr[1][idx_arr[1]][j];
+						col_arrs[solution_idx][2][j] = arr[2][idx_arr[2]][j];
+						col_arrs[solution_idx][3][j] = arr[3][idx_arr[3]][j];
 					}
 					solution_idx++;
 				}
 			}
 		}
 	}
+
+}
+*/
+
+void	ft_skyscrapper(int *input)
+{
+	int i;
+	int j;
+	int res_arr[24][6];
+	int *row_len;
+	int row_cnt[4];
+	int idx_arr[4];
+	int solution_len;
+	int solution_idx;
+	int x;
+	int y;
+	int **arr[4];
+
+	ft_possible_case(res_arr);
+	ft_arr_init(arr, res_arr, input);
+
+
+
+	row_len = arraysize(input,res_arr);
+
+	
+	i = 0;
+	while (i < 4)
+	{
+		row_cnt[i] = row_len[i]/sizeof(int);
+		i++;
+	}
+	i = 0;
+	while (i < 4)
+	{
+		idx_arr[i] = 0;
+		i++;
+	}
+
+	solution_idx = 0;
+	solution_len = ft_solutions_cnt(idx_arr, row_cnt);
+
+
+	int col_arrs[solution_len][4][4];
+	
+	j = 0;
+	solution_idx = 0;
+	for (idx_arr[0] = 0; idx_arr[0] < row_cnt[0]; idx_arr[0]++)
+	{
+		for (idx_arr[1] = 0; idx_arr[1] < row_cnt[1]; idx_arr[1]++)
+		{
+			for (idx_arr[2] = 0; idx_arr[2] < row_cnt[2]; idx_arr[2]++)
+			{
+				for (idx_arr[3] = 0; idx_arr[3] < row_cnt[3]; idx_arr[3]++)
+				{
+					for (j = 0; j < 4; j++)
+					{
+						col_arrs[solution_idx][0][j] = arr[0][idx_arr[0]][j];
+						col_arrs[solution_idx][1][j] = arr[1][idx_arr[1]][j];
+						col_arrs[solution_idx][2][j] = arr[2][idx_arr[2]][j];
+						col_arrs[solution_idx][3][j] = arr[3][idx_arr[3]][j];
+					}
+					solution_idx++;
+				}
+			}
+		}
+	}
+
+
+
 
 	int psb_rows[24][6];
 	ft_possible_case(psb_rows);

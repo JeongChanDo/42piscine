@@ -245,7 +245,6 @@ void	ft_skyscrapper(int *input)
 	//top 4 -> bottom 4 -> left 4 -> right 4;
 	//int input[16] = {4, 3, 2, 1, 1, 2, 2, 2, 4, 3, 2, 1, 1, 2, 2, 2};
 	//int input[16] = {1, 3, 4, 2, 2, 2, 1, 2, 1, 3, 2, 2, 2, 1, 3, 2};
-	int input[16] = {3, 2, 2, 1, 1, 3, 2, 2, 3, 2, 3, 1, 1, 3, 2, 2};
 
 	ft_possible_case(res_arr);
 	arr1 = psbarray(res_arr, input[8] ,input[12]);
@@ -261,13 +260,13 @@ void	ft_skyscrapper(int *input)
 		arrrows[i] = arrlen[i]/sizeof(int);
 		i++;
 	}
-
 	i = 0;
 	while (i < 4)
 	{
 		idx_arr[i] = 0;
 		i++;
 	}
+
 	solution_len = 0;
 	solution_idx = 0;
 
