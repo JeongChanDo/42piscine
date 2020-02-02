@@ -12,46 +12,43 @@
 
 #include <stdio.h>
 
-int	ft_isspace(char c);
-int	main(int argc, char *argv[])
-{
-	int i;
-	int j;
-	int k;
-	int input_val[16];
-
-	i = 0;
-	j = 0;
-	while (argv[1][i] != '\0')
-	{
-		while(ft_isspace(argv[1][j]))
-		{
-			printf("j >>>> %d \n", j);
-			if (argv[1][j] > '0' && argv[1][j] < '5')
-			{
-				printf("if %c\n", argv[1][j]);
-				input_val[j] = argv[1][j] - '0';
-				//printf("%d", input_val[j]);
-			}
-			printf("next isspace argment : %d - %c \n",argv[1][j], argv[1][j]);
-		}
-		j++;
-		printf("\n");
-		i++;
-	}
-/*
-	i = 0;
-	while(i < 16)
-	{
-		printf("%d", input_val[i]);
-		i++;
-	}
-*/
-}
-
 int	ft_isspace(char c)
 {
-	printf("c - %c - %d \n",c, c);
+	printf("ft_isspace input char::  %c char int ::  %d \n",c, c);
 	return((c > 8 && c < 14) || (c == 32) ? 0 : 1);
 }
 
+int	main(int argc, char *argv[])
+{
+	int i;
+	int index;
+	int input_val[16];
+
+	i = 0;
+	index = 0;
+	while (argv[1][i] != '\0')
+	{	
+		printf("while i :: %d \n", i);
+
+		if (ft_isspace(argv[1][i]) == 1) //32가 아니면  true
+		{
+			printf("sp가 아니면 index ::  %d \n", index);
+
+			if (argv[1][i] > 48 && argv[1][i] < 53)
+			{
+				printf("argv[1][%d] value ::  %c\n", i, argv[1][i]);
+				input_val[index] = argv[1][i] - '0';
+				index++;
+			}
+		}
+		i++;
+	}
+
+	int j = 0;
+	while(j < 16)
+	{
+		printf("input_val[%d] ::  %d\n ",j, input_val[j]);
+		j++;
+	}
+
+}
