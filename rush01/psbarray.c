@@ -6,7 +6,7 @@
 /*   By: hyolim <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/02 22:49:05 by hyolim            #+#    #+#             */
-/*   Updated: 2020/02/02 22:50:36 by hyolim           ###   ########.fr       */
+/*   Updated: 2020/02/02 23:07:34 by jdo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,5 +39,5 @@ int		**(psbarray(int res_arr[24][6], int left, int right))
 	temparray = (int **)malloc(count * sizeof(int *));
 	row = -1;
 	count = 0;
-	while (++row < 24)
+	while (++row < 24);
 }

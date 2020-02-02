@@ -2,8 +2,6 @@
 #include <unistd.h>
 #include <stdlib.h>
 
-//int		**ft_possible_chk(int *psb_rows, int **res_arr, int z);
-
 void	ft_possible_case(int res_arr[24][6]){
 	int i;
 	int j;
@@ -67,6 +65,8 @@ void	ft_possible_case(int res_arr[24][6]){
 	}
 }
 
+
+
 int ft_valid_cnt(int res_arr[6], int t, int b, int tmp[4])
 {
 	int valid_cnt;
@@ -105,32 +105,26 @@ int	is_valid(int res_arr[24][6], int t, int b, int tmp[4])
 	}
 	return (valid_cnt);
 }
-int numcheck(int res_arr[24][6], int left, int right )
-{
-	int row;
-	int count;
-
-	row = 0;
-	count = 0;
-	while (row < 24)
-	{
-		if (res_arr[row][0] == left && res_arr[row][5] == right)
-			count++;
-		row++;
-	}
-	return count;
-}
 
 int		**(psbarray(int res_arr[24][6], int left, int right))
-{
+{	
 	int row;
 	int col;
 	int count;
 	int **temparray;
 
-	count = numcheck(res_arr, left, right);
+	row = 0;
+	count = 0;
+	while (row < 24)
+	{	
+		if (res_arr[row][0] == left && res_arr[row][5] == right)	
+			count++;
+		row++;
+	}
+
 	temparray = (int **)malloc(count * sizeof(int *));
-	row = -1;
+	
+	row = 0;
 	count = 0;
 	while (row < 24)
 	{
@@ -279,16 +273,10 @@ void	ft_skyscrapper(int *input)
 	int solution_idx;
 	int x;
 	int y;
-	int z;
 	int **arr[4];
 	int psb_rows[24][6];
-	z = 0;
-
-	//ft_possible_chk(psb_rows, res_arr, z);
 
 	ft_possible_case(psb_rows);
-
-
 	ft_arr_init(arr, psb_rows, input);
 	row_len = arraysize(input,psb_rows);
 
@@ -301,16 +289,6 @@ void	ft_skyscrapper(int *input)
 	
 	solution_len = ft_solution_cnt(idx_arr, row_cnt);
 	int col_arrs[solution_len][4][4];
-
-
-	for (j = 0; j < 4; j++)
-	{
-		for (i = 0; i < 4; i++)
-		{
-				
-		}
-	}
-
 	for (idx_arr[0] = 0; idx_arr[0] < row_cnt[0]; idx_arr[0]++)
 	{
 		for (idx_arr[1] = 0; idx_arr[1] < row_cnt[1]; idx_arr[1]++)
@@ -319,9 +297,6 @@ void	ft_skyscrapper(int *input)
 			{
 				for (idx_arr[3] = 0; idx_arr[3] < row_cnt[3]; idx_arr[3]++)
 				{
-					
-
-
 					for (j = 0; j < 4; j++)
 					{
 						for (i = 0; i < 4; i++)

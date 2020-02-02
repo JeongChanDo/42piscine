@@ -1,4 +1,4 @@
-int		*ft_possible_chk(int *psb_rows, int **res_arr, int z)
+int		**ft_possible_chk(int *psb_rows, int **res_arr, int z)
 {
 	int max_left;
 	int max_right;
@@ -65,7 +65,7 @@ void permutations(int *psb_rows, int **res_arr, const int k, const int m, int *z
     	while(i <= m)
     	{
 			swap(&psb_rows[k],&psb_rows[i]);
-			permutations(psb_rows,k+1,m);
+			permutations(psb_rows, res_arr, k+1,m, z);
 			swap(&psb_rows[k],&psb_rows[i]);
 			i++;
 		}
