@@ -2,8 +2,6 @@
 #include <unistd.h>
 #include <stdlib.h>
 
-//int		**ft_possible_chk(int *psb_rows, int **res_arr, int z);
-
 void	ft_possible_case(int res_arr[24][6]){
 	int i;
 	int j;
@@ -284,32 +282,15 @@ void	ft_skyscrapper(int *input)
 	int psb_rows[24][6];
 	z = 0;
 
-	//ft_possible_chk(psb_rows, res_arr, z);
-
 	ft_possible_case(psb_rows);
-
-
 	ft_arr_init(arr, psb_rows, input);
 	row_len = arraysize(input,psb_rows);
-
-
 	i = 0;
 	j = 0;
 	solution_idx = 0;
 	while (i < 4)
 		row_cnt[i++] = row_len[i]/sizeof(int);
-	
-	solution_len = ft_solution_cnt(idx_arr, row_cnt);
 	int col_arrs[solution_len][4][4];
-
-
-	for (j = 0; j < 4; j++)
-	{
-		for (i = 0; i < 4; i++)
-		{
-				
-		}
-	}
 
 	for (idx_arr[0] = 0; idx_arr[0] < row_cnt[0]; idx_arr[0]++)
 	{
@@ -319,9 +300,6 @@ void	ft_skyscrapper(int *input)
 			{
 				for (idx_arr[3] = 0; idx_arr[3] < row_cnt[3]; idx_arr[3]++)
 				{
-					
-
-
 					for (j = 0; j < 4; j++)
 					{
 						for (i = 0; i < 4; i++)
@@ -332,9 +310,6 @@ void	ft_skyscrapper(int *input)
 			}
 		}
 	}
-
-
 	i = 0;
 	while ( i < solution_len && !is_valid_solution(i,col_arrs[i++],psb_rows,input));
-
 }
