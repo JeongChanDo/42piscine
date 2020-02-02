@@ -337,13 +337,4 @@ void	ft_skyscrapper(int *input)
 	i = 0;
 	while ( i < solution_len && !is_valid_solution(i,col_arrs[i++],psb_rows,input));
 
-	/*
-	while ( i < solution_len)
-	{
-		if (is_valid_solution(i, col_arrs[i], psb_rows, input))
-			break;
-		i++;
-	}
-	*/
-
 }
