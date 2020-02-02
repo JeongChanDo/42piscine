@@ -167,26 +167,35 @@ int		*arraysize(int *input, int res_arr[][6])
 	return size; 
 }
 
-int	ft_solutions_cnt(int idx_arr[4] , int row_cnt[4])
+int	ft_solution_cnt(int idx_arr[4], int row_cnt[4])
 {
 	int solution_len;
 
 	solution_len = 0;
-	for (idx_arr[0] = 0; idx_arr[0] < row_cnt[0]; idx_arr[0]++)
+	idx_arr[0] = 0;
+	while (idx_arr[0] < row_cnt[0])
 	{
-		for (idx_arr[1] = 0; idx_arr[1] < row_cnt[1]; idx_arr[1]++)
+		idx_arr[1] = 0;
+		while (idx_arr[1] < row_cnt[1])
 		{
-			for (idx_arr[2] = 0; idx_arr[2] < row_cnt[2]; idx_arr[2]++)
+			idx_arr[2] = 0;
+			while (idx_arr[2] < row_cnt[2])
 			{
-				for (idx_arr[3] = 0; idx_arr[3] < row_cnt[3]; idx_arr[3]++)
+				idx_arr[3] = 0;
+				while (idx_arr[3] < row_cnt[3])
 				{
 					solution_len++;
+					idx_arr[3]++;
 				}
+			idx_arr[2]++;
 			}
+		idx_arr[1]++;
 		}
+	idx_arr[0]++;
 	}
 	return (solution_len);
 }
+
 
 void ft_arr_init(int **arr[4], int res_arr[24][6], int *input)
 {
@@ -236,7 +245,7 @@ void	ft_skyscrapper(int *input)
 
 
 
-	solution_len = ft_solutions_cnt(idx_arr, row_cnt);
+	solution_len = ft_solution_cnt(idx_arr, row_cnt);
 
 
 	int col_arrs[solution_len][4][4];
@@ -279,6 +288,15 @@ void	ft_skyscrapper(int *input)
 	int solution;
 	for( i = 0 ; i < solution_len; i++)
 	{
+
+
+int	ft_get_valid_cnt(int psb_rows[24][6], int input[14])
+{
+
+}
+
+		int tmp[4];
+
 		valid_cnt = 0;
 		top = 0;
 		bottom = top + 4;
@@ -294,6 +312,9 @@ void	ft_skyscrapper(int *input)
 			top++;
 			bottom++;
 		}
+
+
+
 		if (valid_cnt == 16)
 		{
 			solution = i;
