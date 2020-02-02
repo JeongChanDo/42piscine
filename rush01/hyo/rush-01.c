@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <unistd.h>
+#include <stdlib.h>
 
 void	ft_print_board(int board[4][4])
 {
@@ -176,13 +177,97 @@ int	is_valid(int res_arr[24][6], int t, int b, int tmp[4])
 	return valid_cnt;
 }
 
+int		**(psbarray(int res_arr[24][6], int left, int right))
+{	
+	int row;
+	int col;
+	int count;
+	int **temparray;
+
+	//동적 배열 만들기
+	row = 0;
+	count = 0;
+	while (row < 24)
+	{	
+		if (res_arr[row][0] == left && res_arr[row][5] == right)	
+			count++;
+		row++;
+	}
+
+	temparray = (int **)malloc(count * sizeof(int *));
+	
+
+	//동적배열에 경우의 수 대입
+	row = 0;
+	count = 0;
+	while (row < 24)
+	{
+		if (res_arr[row][0] == left && res_arr[row][5] == right)
+		{	
+			col = 1;
+			temparray[count] = (int *)malloc(4 * sizeof(int *));
+			while (col < 5)
+			{		
+				temparray[count][col - 1] = res_arr[row][col];
+				col++;
+			}
+			count++;
+		}
+		row++;
+	}
+	//printf("%lu", sizeof(temparray));
+
+	return temparray;
+}
+
+int		*arraysize(int *input, int res_arr[][6])
+{
+	int size[4];
+	
+	int row = 0;
+	int count;
+	int i = 0;
+	while (i < 4)
+	{
+		count = 0;
+		row = 0;
+		while (row < 24)
+		{	
+			if (res_arr[row][0] == input[8 + i] && res_arr[row][5] == input[12 + i])	
+				count++;
+			row++;
+		}
+		size[i] = count * 4;
+		printf("left %d, right %d,size[%d] : %d\n", input[8 +i], input[12+i],i,  size[i]);
+		i++;
+	}
+	return size; 
+}
+
+
 int		testbed()
 {
+	
+	int res_arr[24][6];
+
+	ft_possible_case(res_arr);
+
 	//left 4-> right 4-> top 4 -> bottom 4;
-	int input[16] = {4, 3, 2, 1, 1, 1, 2, 2, 4, 3, 2, 1, 1, 2, 2, 2,};
+	int input[16] = {1, 3, 4, 2, 2, 2, 1, 2, 1, 3, 2, 2, 2, 1, 3, 2};
+	int **arr1 = psbarray(res_arr, input[8] ,input[12]);
+	int **arr2 = psbarray(res_arr, input[9] ,input[13]);
+	int **arr3 = psbarray(res_arr, input[10] ,input[14]);
+	int **arr4 = psbarray(res_arr, input[11] ,input[15]);
+	
+ 	//	printf("%lu\n", sizeof(arr5)/sizeof(int));
+
+	/*
 	//4 ->   <-2
 	int arr1[1][4] = {{1, 2, 3, 4}};
 	//3 ->   <-2
+	
+	
+	printf("sizeof arr1 static : %lu\n", sizeof(arr1)/sizeof(int));
 	int arr2[3][4] = {{1, 2, 4, 3},
 					{1, 3, 4, 2},
 					{2, 3, 4, 1}};
@@ -196,16 +281,27 @@ int		testbed()
 	//1 ->   <-2
 	int arr4[2][4] = {{4, 1, 2, 3},
 					{4, 2, 1, 3}};
+	*/
+	
 	int i;
 	int j;
 	
 	i = 0;
 	
+
+	int *arrlen = arraysize(input,res_arr);
+	
+	/*	
 	// all rows length and cnt
 	int arrlen[4] = {sizeof(arr1)/sizeof(int),
 				sizeof(arr2)/sizeof(int),
 				sizeof(arr3)/sizeof(int),
 				sizeof(arr4)/sizeof(int)};
+	printf("arrlen[1] :%d\n", arrlen[0]);
+	printf("arrlen[2] :%d\n", arrlen[1]);
+	printf("arrlen[3] :%d\n", arrlen[2]);
+	printf("arrlen[4] :%d\n", arrlen[3]);
+	*/
 	int arrrows[4] = {arrlen[0]/sizeof(int),
 					arrlen[1]/sizeof(int),
 					arrlen[2]/sizeof(int),
